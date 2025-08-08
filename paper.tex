@@ -1,0 +1,177 @@
+\documentclass{article}
+\usepackage{graphicx} 
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage[newfloat]{minted}
+\usemintedstyle{vs}    
+\setminted{
+  fontsize=\small,
+  breaklines,
+  autogobble,
+  frame=lines,
+  framesep=3mm,
+  bgcolor=black!5
+}
+
+\title{Analysis of Racial Distribution of Advanced-Level Mathematics Classes in  Cambridge Rindge and Latin School}
+\author{Calder Russell}
+\date{August 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Identifying racial gaps in course enrollment uncovers systemic inequities that can limit access to rigorous academic opportunities for historically marginalized students. By quantifying where disparities exist, educators and policymakers can target resources, interventions, and policy changes to ensure a truly level playing field. Ultimately, addressing these enrollment imbalances is essential for closing achievement gaps and building an inclusive school culture in which every student can thrive.
+\subsection{What has been done:}\\
+\textbf{Middle school programs:} 
+
+Programs in the past have been targeted at students in middle school. The “Bridge to Algebra” program was implemented as an effort to create a pathway for motivated students to start high school in Algebra 2. This seemed like a more open alternative to paid options like the Russian School of Math and private tutoring. This program encountered several challenges in collaborating with the high school to support students who had completed the summer lessons.\\
+\textbf{High school:}
+
+CRLS (the high school) has made many plans targeted at helping students track into “higher level” math classes. A more recent addition to these programs has been the removal of full-year Algebra 1 (ask for Josh Marden’s more personal feelings about this change). This was to support students in taking honors classes. The majority of students stayed in the Honors classes and got grades that met expectations.
+
+We have disaggregated data from 2020-2024 (5 years of data) for each class, and we have the state-reported total high school breakdown (ratios of each race/ethnicity). Then we have the following Research Questions:
+\begin{itemize}
+    \item Does the proportion of students enrolled in Advanced Placement (AP)/ Honors (HN)/ College Prep (CP) classes differ from the reported total ratios?
+    \item What is the effect size of the association between race and enrollment on these classes?
+    \item Are certain racial or ethnic groups underrepresented or overrepresented in these classes?
+\end{itemize}
+
+This paper is organized as follows. Section 1 makes up the introduction and background information. Section 2 acts as a literature review on the topic, covering similar papers. Section 3 analyzes all of the data and gives our methodology. Section 4 provides results and discussion. Section 5 concludes and suggests directions for future research. 
+
+
+\section{Literature Review}
+
+\section{Analysis of Racial Distribution}
+\subsection{Data}
+The data collected for this project was collected by the Cambridge Public Schools and organized by the “Data Team” [insert Rob’s/data team email]. The data consisted of 5 years of data from 2020 to 2024. The number of students from each racial category (Black, White, Asian, Hispanic, Native Hawaiian, Native American, and Multi-race Non-Hispanic) and Gender (Male, Female, and NB) were reported for every math class each year. Much of the data had to be suppressed to keep individual students anonymous; every value of 5 and under had to be suppressed. To approximate the number of students in these categories, I subtracted the known values from the totals to determine the remaining students in the suppressed categories. 
+\subsection{Methodology}
+\subsubsection{Chi-Square Test}
+A chi-squared test was employed to determine if the observed proportions of students in math classes fit the expected distribution of students as given by the Department of Elementary and Secondary Education (DESE). 
+\textbf{Test Statistic:}
+To find the Chi-Squared test statistic of each, this formula was used 
+$\chi^2 = \sum \frac{(O - E)^2}{E}$, which is the sum of the difference between the number of observed students in each category and the expected number, squared, divided by the expected number of students in each category.
+
+\textbf{Degrees of Freedom:}
+The process for finding the degrees of freedom in a chi-square goodness of fit test, DF = number of groups - 1
+We have 7 groups and therefore a DF of 6 
+
+\textbf{The p-value:}
+
+\[
+P\left( \chi^2_{\text{df}} \geq \chi^2_{\text{obs}} \right)
+\]
+where \( \chi^2_{\text{df}} \) is the chi-squared distribution with the appropriate degrees of freedom, and \( \chi^2_{\text{obs}} \) is the observed test statistic.
+
+\subsubsection{Cohen's w}
+Cohen’s w is a standardized measure of effect size used to quantify the magnitude of the difference between an observed categorical distribution and an expected (theoretical) distribution under the null hypothesis.
+It is defined as follows:
+
+\[
+w = \sqrt{ \sum_{i=1}^{k} \frac{(p_{i,\text{obs}} - p_{i,\text{exp}})^2}{p_{i,\text{exp}}} }
+\]
+
+Where:
+\begin{itemize}
+  \item \( p_{i,\text{obs}} = \frac{O_i}{N} \) is the observed proportion in category \( i \)
+  \item \( p_{i,\text{exp}} = \frac{E_i}{N} \) is the expected proportion in category \( i \)
+  \item \( k \) is the number of categories
+\end{itemize}
+
+This formula compares the observed proportions to the expected proportions and weights the squared differences by the expected proportions, similar in spirit to the chi-squared statistic, but standardized to be independent of sample size. 
+
+\[
+\chi^2 = {N}{w^2}
+\]
+
+Thus, once you compute the chi-squared test statistic and know the sample size, you can derive Cohen's \({w}\):
+\[
+w = \sqrt{ \frac{\chi^2}{N} }
+\]
+
+This relationship is useful because while the chi-squared test tells you whether the difference is statistically significant. Cohen's \(w\) tells you how substantively large the difference is.  
+
+Interpretation of Cohen's \(w\) follow these rough benchmarks:
+
+\begin{align*}
+w &= 0.10 \quad \text{(small effect)} \\
+w &= 0.30 \quad \text{(medium effect)} \\
+w &= 0.50 \quad \text{(large effect)}
+\end{align*}
+
+Additionally, a total average of all the Cohen's \(w\) values was calculated to be used as a measure to compare school districts to Cambridge in further research.
+
+\subsubsection{Fisher's Combined P-Value}
+
+When you have multiple independent hypothesis tests (e.g. p-values from the same class across different years), Fisher's method provides a way to aggregate those p-values into a single test statistic that reflects the overall significance.
+
+\textbf{Fisher's Test Statistic:}
+given \(k\) independent p-values \(p_\text{1}, p_\text{2},\p_\text{3}, ... , p_\text{k},\) the test statistic is:
+
+\[
+\chi^2 = -2\sum_{i=1}^{k}\ln({p_i})
+\]
+
+Under the null hypothesis (i.e., assuming all \(p_i\)) values are from true nulls), \(\chi^2\) follows a chi-squared distribution with:
+
+\[
+df = 2k
+\]
+
+You can compute a combined p-value using the chi-squared survival function (upper tail area):
+
+\[
+p_{combined} = P(\chi^{2}_{2k}\geq \chi^2) 
+\]
+
+This combined p-value reflects the likelihood of observing a group of p-values at least this extreme under the global null hypothesis.
+
+% Not sure why, but it is saying that there are errors with how I am doing some of the lines??! Fix later
+\textbf{Code:}
+    \begin{minted}{python}
+    import numpy as np
+    from scipy.stats import chi2
+    
+    def fisher_method(p_values, label):
+        # Remove zeros and replace them with a small epsilon for stability
+        nonzero = p_values[p_values > 0]
+        if len(nonzero) == 0:
+            print(f"{label}: All p-values are zero, cannot compute.")
+            return
+    
+        eps = nonzero.min() / 10
+        p_safe = np.where(p_values == 0, eps, p_values)
+    
+        # Fisher's combined test statistic
+        X2 = -2 * np.sum(np.log(p_safe))
+        df = 2 * len(p_safe)
+        combined_p = chi2.sf(X2, df)
+    
+        print(f"{label}: Fisher’s X² = {X2:.3f}, df = {df}, combined p = {combined_p:.3e}")
+    
+    # Example use (with our data:
+    fisher_method(pAllYear, "All Years")
+    # All Fisher’s X² = 2294.770, df = 246, combined p = 0.000e+00
+    \end{minted}
+
+
+
+\section{Results and Discussion}
+\subsection{Statistical Analysis Results}
+\subsection{Analysis of Racial Composition}
+\subsection{Discussion}
+
+
+
+    \begin{lstlisting}[language=Python]
+    def hello_world():
+        print("Hello, World!")
+    hello_world()
+    \end{lstlisting}
+\section{Conclusion}
+
+
+\end{document}
+
+
