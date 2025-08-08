@@ -1,9 +1,9 @@
 \documentclass{article}
-\usepackage{graphicx} 
+\usepackage{graphicx} % Required for inserting images
 \usepackage{listings}
 \usepackage{amsmath}
 \usepackage[newfloat]{minted}
-\usemintedstyle{vs}    
+\usemintedstyle{vs}     % or: colorful, borland, perldoc, etc.
 \setminted{
   fontsize=\small,
   breaklines,
@@ -12,6 +12,23 @@
   framesep=3mm,
   bgcolor=black!5
 }
+
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{siunitx}
+\usepackage{caption}
+\captionsetup{labelfont=bf}
+
+% Align numbers nicely (optional). You can just use 'c' columns if you prefer.
+\sisetup{
+  table-number-alignment = center,
+  table-text-alignment  = center,
+  detect-weight,
+  mode = text
+}
+
+% For letter subscripts on means: \msub{688}{a} -> 688ₐ
+\newcommand{\msub}[2]{\ensuremath{#1_{\mathrm{#2}}}}
 
 \title{Analysis of Racial Distribution of Advanced-Level Mathematics Classes in  Cambridge Rindge and Latin School}
 \author{Calder Russell}
@@ -159,6 +176,29 @@ This combined p-value reflects the likelihood of observing a group of p-values a
 
 \section{Results and Discussion}
 \subsection{Statistical Analysis Results}
+
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Significance and Effect Size in Each Class Level and Overall}
+\label{tab:rt-errors}
+\small
+\begin{tabular}{l S S S S}
+\toprule
+Class Level & {Standard} & {Honors} & {Advanced Placement} & {Overall} \\
+\midrule
+p-value     & 4.254e-27 & 8.176e-134 & 6.108e-49 & 0 \\
+Cohen's \(w\) & 0.5484 & 0.2369 & 0.4866 & 0.3740 \\
+\bottomrule
+\end{tabular}
+
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Note.} The reason the overall p-value is not represented in scientific notation and is instead 0 is because \\
+($p_{overall} < \num{1e-200}$) and thus could not be calculated with any more certainty.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
 \subsection{Analysis of Racial Composition}
 \subsection{Discussion}
 
